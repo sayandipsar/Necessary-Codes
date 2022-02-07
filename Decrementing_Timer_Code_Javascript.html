@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        p {
+            text-align: center;
+            font-size: 60px;
+            margin-top: 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button onclick="myTimerClock()">Start</button>
+    <span id="timerLiveTime"></span>
+
+    <script>
+
+        function zeroPadMin(numberStrMin) {
+            return numberStrMin.padStart(2, "0");
+        }
+        function zeroPadSec(numberStrSec) {
+            return numberStrSec.padStart(2, "0");
+        }
+        var myTimer;
+        function myTimerClock() {
+            myTimer = setInterval(myClock, 1000);
+            var c = 600; //Initially set to 10 Minutes
+            function myClock() {
+                --c
+                var seconds = c % 60; // Seconds that cannot be written in minutes
+                var secondsInMinutes = (c - seconds) / 60;
+                var minutes = secondsInMinutes % 60; // Minutes that cannot be written in hours
+                var hours = (secondsInMinutes - minutes) / 60;
+                console.clear();
+                // *****************************************
+                var numStringMin = minutes.toString();
+                var paddedNumMin = zeroPadMin(numStringMin);
+
+                var numStringSec = seconds.toString();
+                var paddedNumSec = zeroPadSec(numStringSec);
+                // ***************************************
+                console.log(paddedNumMin + ":" + paddedNumSec)
+                document.getElementById("timerLiveTime").innerHTML = paddedNumMin + " Min " + paddedNumSec + " Sec left";
+                if (c == 0) {
+                    clearInterval(myTimer);
+                }
+            }
+
+        }
+
+        clock();
+    </script>
+</body>
+
+</html>
